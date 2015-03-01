@@ -15,16 +15,6 @@ gem 'sinatra-sequel'
 gem 'mysql2'
 
 group :development do
-  # If you want to use Guard, uncomment these lines
-  #gem 'guard'
-  #gem 'compass'
-  #gem 'sass', "~> 3.2.1"
-  #gem 'guard-sass', "~> 1.0.0"
-  #gem 'guard-jslint-on-rails'
-  #gem 'guard-jammit'
-  #gem 'guard-shell'
-  #gem 'guard-coffeescript'
-  #gem 'rb-fsevent', :require => false
   gem 'awesome_print'
   gem 'bones'
 end
