@@ -1,0 +1,85 @@
+require 'dotenv/tasks'
+
+begin
+  require 'bones'
+rescue LoadError
+  abort '### Please install the "bones" gem ###'
+end
+
+
+desc "Loads the app environment"
+task(:environment => :dotenv) do
+  # TODO: load database connection here
+  puts ENV["DATABASE_URL"]
+end
+
+task :app => :environment do
+  require './app'
+end
+
+#namespace :db do
+#  desc "Migrate the database"
+#  task(:migrate => :environment) do
+#    ActiveRecord::Base.logger = Logger.new(STDOUT)
+#    ActiveRecord::Migration.verbose = true
+#    ActiveRecord::Migrator.migrate("db/migrate")
+#  end
+#end
+
+
+namespace :db do
+  desc 'Run DB migrations'
+  task :migrate => :app do
+    require 'sequel/extensions/migration'
+    
+    database = <%= classname %>::App.database
+    Sequel::Migrator.apply(database, 'db/migrations')
+    version = (row = database[:schema_info].first) ? row[:version] : nil
+    puts "Database is now at version #{version}"
+  end
+
+  desc 'Rollback migration'
+  task :rollback => :app do
+    require 'sequel/extensions/migration'
+
+    database = <%= classname %>::App.database
+    version = (row = database[:schema_info].first) ? row[:version] : nil
+    Sequel::Migrator.apply(database, 'db/migrations', version - 1)
+    puts "Database is now at version #{version}"
+  end
+
+  desc 'Drop the database'
+  task :drop => :app do
+    database = <%= classname %>::App.database
+
+    database.tables.each do |table|
+      database.run("DROP TABLE #{table} CASCADE")
+    end
+    puts "Database is now clear"
+  end
+
+  desc 'Dump the database schema'
+  task :dump => :app do
+    database = <%= classname %>::App.database
+
+    `sequel -d #{database.url} > db/schema.rb`
+  end
+end
+
+# http://erniemiller.org/2014/02/05/7-lines-every-gems-rakefile-should-have/
+task(:console => :app) do
+  require 'irb'
+  require 'irb/completion'
+
+  ARGV.clear
+  IRB.start
+end
+
+
+Bones {
+  name     '<%= name %>'
+  authors  'Marshall'
+  email    'FIXME (email)'
+  url      'FIXME (project homepage)'
+}
+

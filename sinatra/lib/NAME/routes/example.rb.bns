@@ -1,0 +1,16 @@
+
+module <%= classname %>
+  module Routes
+    class Example < Base
+      get '/api/1/:id' do
+        auth_helper_test
+        
+        page = {
+          :id => params[:id]
+        }
+
+        json page
+      end
+    end
+  end
+end

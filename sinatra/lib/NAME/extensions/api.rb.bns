@@ -1,0 +1,21 @@
+require 'sinatra/base'
+
+module <%= classname %>
+  module Extensions
+    module API extend self
+      module Helpers
+        def json(value, options={})
+          #TODO: use current_user https://github.com/maccman/monocle/blob/master/app/extensions/api.rb
+          options = {user: "marshall"}.merge(options)
+          content_type :json, :charset => 'utf-8'
+          value.to_json(options)
+        end
+      end
+
+      def registered(app)
+        puts "Registering API Helpers"
+        app.helpers Helpers
+      end
+    end
+  end
+end

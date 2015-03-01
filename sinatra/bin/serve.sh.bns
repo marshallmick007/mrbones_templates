@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /Users/marshall/work/ruby/<%= name %>
+/usr/local/opt/rbenv/shims/unicorn -c /Users/marshall/work/ruby/<%= name %>/config/unicorn-local.rb

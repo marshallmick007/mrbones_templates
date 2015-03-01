@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PIDFILE=/Users/marshall/work/ruby/<%= name %>/tmp/<%= name %>.pid
+launchctl stop local.<%= name %>.unicorn
+rm $PIDFILE
+echo "<%= name %> has stopped"
+launchctl start local.<%= name %>.unicorn
+sleep 2
+if [ -e $PIDFILE ]; then
+  echo "<%= name %> has started"
+fi

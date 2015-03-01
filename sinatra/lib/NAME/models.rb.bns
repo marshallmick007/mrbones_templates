@@ -1,0 +1,8 @@
+Sequel.default_timezone = :utc
+Sequel::Model.plugin :timestamps
+
+module <%= classname %>
+  module Models
+    autoload :KLASS, './lib/<%= name %>/models/KLASS'
+  end
+end

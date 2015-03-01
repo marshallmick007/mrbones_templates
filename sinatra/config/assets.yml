@@ -1,0 +1,10 @@
+# https://gist.github.com/jashkenas/667693
+# http://documentcloud.github.io/jammit/
+package_assets: on # (on, off, always)
+embed_assets: on # (on, off, datauri)
+compress_assets: off # (on, off)
+gzip_assets: off # (on, off)
+
+javascripts:
+  app:
+    - assets/js/app.js

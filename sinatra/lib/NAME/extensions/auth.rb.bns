@@ -1,0 +1,17 @@
+module <%= classname %>
+  module Extensions
+    module Auth extend self
+      module Helpers
+        def auth_helper_test
+          puts "in Auth Helper"
+        end
+      end
+
+      # self registering helper
+      def registered(app)
+        puts "Registering Auth Helpers"
+        app.helpers Helpers
+      end
+    end
+  end
+end

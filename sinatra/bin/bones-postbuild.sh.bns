@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+bundle install
+
+cp config/<%= name %>.dev.marshall.nginx.conf /usr/local/etc/nginx/sites-available/<%= name %>.dev.marshall.nginx.conf
+
+ln -s /usr/local/etc/nginx/sites-available/<%= name %>.dev.marshall.nginx.conf /usr/local/etc/nginx/sites-enabled/<%= name %>.dev.marshall.nginx.conf
+
+cp config/local.<%= name %>.unicorn.plist ~/Library/LaunchAgents/local.<%= name %>.unicorn.plist
+
+launchctl load -w ~/Library/LaunchAgents/local.<%= name %>.unicorn.plist
+launchctl start local.<%= name %>.unicorn
+
+echo "Reload nginx and then run 'bin/serve.sh'"

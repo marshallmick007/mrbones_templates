@@ -1,0 +1,8 @@
+module <%= classname %>
+  module Routes
+    class Base < Sinatra::Application
+      register Extensions::API
+      register Extensions::Auth
+    end
+  end
+end

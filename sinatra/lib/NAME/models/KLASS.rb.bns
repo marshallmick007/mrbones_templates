@@ -1,0 +1,24 @@
+module <%= classname %>
+  module Models
+    class KLASS #< Sequel::Model
+      # Scopes
+      #dataset_module do
+      #  def ordered
+      #    order(:id)
+      #  end
+      #
+      #  def select_by_slug(slug)
+      #    where(:slug => slug)
+      #  end
+      #
+      #  def by_slug_or_id(slug)
+      #    where{Sequel.|({:id => slug}, {:slug => slug})}.first
+      #  end
+      #end
+    
+      # Relationships
+      # one_to_many :sections, :order => :sequence
+
+    end
+  end
+end
